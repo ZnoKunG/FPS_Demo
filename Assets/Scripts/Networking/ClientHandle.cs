@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = System.Random;
 
 public class ClientHandle: MonoBehaviour
@@ -19,9 +20,10 @@ public class ClientHandle: MonoBehaviour
     {
         int id = packet.ReadInt();
         string username = packet.ReadString();
-        int score = packet.ReadInt();
+        Vector3 position = packet.ReadVector3();
+        Quaternion rotation = packet.ReadQuaternion();
 
-        GameManager.Instance.SpawnPlayer(id, username, score);
+        GameManager.Instance.SpawnPlayer(id, username, position, rotation);
     }
 
     #region Lobby
@@ -107,6 +109,7 @@ public class ClientHandle: MonoBehaviour
     {
         int id = packet.ReadInt();
 
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         GameManager.Instance.StartGame();
     }
     #endregion

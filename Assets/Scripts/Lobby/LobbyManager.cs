@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class LobbyManager : MonoBehaviour
 {
@@ -128,6 +129,8 @@ public class LobbyManager : MonoBehaviour
             return;
         }
 
+        Debug.Log("Try to start the game...");
         ClientSend.StartGameRequest();
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

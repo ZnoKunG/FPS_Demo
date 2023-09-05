@@ -8,7 +8,10 @@ public class GameManager : MonoBehaviour
 
     public static Dictionary<int, PlayerManager> players = new Dictionary<int, PlayerManager>();
 
-    public GameObject localPlayerPrefab;
+    [SerializeField]
+    private GameObject localPlayerPrefab;
+
+    [SerializeField]
     public GameObject playerPrefab;
 
     private void Awake()
@@ -21,6 +24,8 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
         }
+
+        DontDestroyOnLoad(gameObject);
     }
 
     void Update()
@@ -28,17 +33,17 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void SpawnPlayer(int id, string username, int score)
+    public void SpawnPlayer(int id, string username, Vector3 position, Quaternion rotation)
     {
         GameObject player;
 
         if (id == Client.Instance.Id)
         {
-            player = Instantiate(localPlayerPrefab, Vector3.zero, Quaternion.identity);
+            player = Instantiate(localPlayerPrefab, position, rotation);
         }
         else
         {
-            player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+            player = Instantiate(playerPrefab, position, rotation);
         }
 
         player.GetComponent<PlayerManager>().Id = id;
@@ -48,6 +53,6 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-
+        ClientSend.SpawnPlayersInLobby();
     }
 }

@@ -70,8 +70,17 @@ public class ClientSend : MonoBehaviour
 
     public static void StartGameRequest()
     {
-
         using (Packet packet = new Packet((int)ClientPackets.startGameRequest))
+        {
+            packet.Write(Client.Instance.Id);
+
+            SendTCPData(packet);
+        }
+    }
+
+    public static void SpawnPlayersInLobby()
+    {
+        using (Packet packet = new Packet((int)ClientPackets.spawnPlayersInLobby))
         {
             packet.Write(Client.Instance.Id);
 

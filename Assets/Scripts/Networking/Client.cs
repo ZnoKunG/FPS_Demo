@@ -33,6 +33,8 @@ public class Client: MonoBehaviour
         {
             Instance = this;
         }
+
+        DontDestroyOnLoad(this);
     }
 
     private void Start()
@@ -71,6 +73,7 @@ public class Client: MonoBehaviour
             { (int)ServerPackets.joinLobbySuccess, ClientHandle.JoinLobbySuccess },
             { (int)ServerPackets.quitLobbySuccess, ClientHandle.QuitLobbySuccess },
             { (int)ServerPackets.forceQuitLobby, ClientHandle.ForceQuitLobby },
+            { (int)ServerPackets.startGame, ClientHandle.StartGame },
         };
 
         Debug.Log("Initialize Client packets");
